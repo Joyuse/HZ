@@ -1118,7 +1118,6 @@ public class OpenGLProjectRenderer implements GLSurfaceView.Renderer {
         };
 
         float [] vertix = readFile.read_file();
-
         test_vertices = ByteBuffer.allocateDirect(vertix.length*4).order(ByteOrder.nativeOrder()).asFloatBuffer();
         test_vertices.put(vertix).position(0);
 
