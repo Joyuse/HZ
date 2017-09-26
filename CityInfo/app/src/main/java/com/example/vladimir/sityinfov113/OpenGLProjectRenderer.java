@@ -1123,10 +1123,10 @@ public class OpenGLProjectRenderer implements GLSurfaceView.Renderer {
         Log.w("E", String.valueOf(test.length));
         Log.w("E", String.valueOf(test.length / 2));
 
-        float[] vertix = readFile.read_file();
+        float [] vertix = readFile.read_file();
 
-        test_vertices = ByteBuffer.allocateDirect(test.length * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
-        test_vertices.put(test).position(0);
+        test_vertices = ByteBuffer.allocateDirect(vertix.length*4).order(ByteOrder.nativeOrder()).asFloatBuffer();
+        test_vertices.put(vertix).position(0);
 
 //        verticesReady = ByteBuffer.allocateDirect(vertices.length * mBytesPerFloat).order(ByteOrder.nativeOrder()).asFloatBuffer();
 //        verticesReady.put(vertices).position(0);
@@ -1232,7 +1232,7 @@ public class OpenGLProjectRenderer implements GLSurfaceView.Renderer {
         mColorHandle = GLES20.glGetAttribLocation(colored_vertices_program_handle, "a_Color");
 
         GLES20.glEnable(GLES20.GL_CULL_FACE);
-        GLES20.glCullFace(GLES20.GL_FRONT); //отключение прорисовки  "за" домом
+        GLES20.glCullFace(GLES20.GL_BACK); //отключение прорисовки  "за" домом
         GLES20.glFrontFace(GLES20.GL_CW);//по часовой
     }
 
@@ -1253,17 +1253,9 @@ public class OpenGLProjectRenderer implements GLSurfaceView.Renderer {
         GLES20.glUseProgram(colored_vertices_program_handle);
 
         GLES20.glUniformMatrix4fv(MVPmatrix_location, 1, false,camera.getViewProjectionMatrix().values, 0);
-
         //drawColoredPoints(verticesReady, GLES20.GL_TRIANGLES, 0,30);
         drawColoredPoints(test_vertices, GLES20.GL_TRIANGLES, 0,399);
         //fpsCounter.logFrame();
-
-
-//        if(!one_time) {
-//            Log.w("F",camera.getViewProjectionMatrix().debug());
-//            one_time = true;
-//        }
-//        camera.translate(0.001f,0.0f);
     }
 
     //функция рисовки 3-ка
