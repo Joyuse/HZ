@@ -17,8 +17,7 @@ import java.nio.ByteBuffer;
 public class ReadFile {
     @TargetApi(Build.VERSION_CODES.KITKAT)
     public float[] read_file() {
-        float [] mass_vertices = new float[0];
-        byte[] buffer_byte = new byte[0];
+        float [] mass_vertices = new float[800000];
         int count_points;
         String fileName = "city.model";
         Log.w("W", "СЧИТЫВАЕМ ФАЙЛ");
@@ -38,10 +37,14 @@ public class ReadFile {
             count_points = bb.getInt(); // кол-во точек
             //переводим это колво в байты
             byte_count = (byte) count_points;
-            //считываем по кол-во точек
+            //считываем по кол-во точек заносим кол-во точки в буфер
             fin.read(buffer, 4, byte_count * 12);
+            //снова вылавливаем массив
+            ByteBuffer bb2 = ByteBuffer.wrap(buffer);
+            //Определяем размер массива
+            mass_vertices = new float[count_points];
             for(int i = 0; i < count_points; i ++)
-                mass_vertices[i] =  bb.getFloat();
+                mass_vertices[i] =  bb2.getFloat();
             Log.w("W","кол-во точек №2 = " + bb.getInt());
         }
         //Ловим ошибку при считывании

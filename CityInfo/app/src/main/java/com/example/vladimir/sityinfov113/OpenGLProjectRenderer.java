@@ -2,13 +2,10 @@ package com.example.vladimir.sityinfov113;
 
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
-import android.util.Log;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
-
-
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -1119,9 +1116,6 @@ public class OpenGLProjectRenderer implements GLSurfaceView.Renderer {
                 12,15,15,
                 0.5f,0.5f,0.5f,1f,
         };
-
-        Log.w("E", String.valueOf(test.length));
-        Log.w("E", String.valueOf(test.length / 2));
 
         float [] vertix = readFile.read_file();
 
