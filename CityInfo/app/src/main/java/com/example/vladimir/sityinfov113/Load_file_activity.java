@@ -18,8 +18,8 @@ public class Load_file_activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load_file_activity);
         Button start_load_file = (Button)findViewById(R.id.load_file_button);
         Button close_load_file = (Button)findViewById(R.id.close_load_button);

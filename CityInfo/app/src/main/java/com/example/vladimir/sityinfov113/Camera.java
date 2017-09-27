@@ -14,7 +14,7 @@ public class Camera {
     boolean is_need_update_mvp=true;
 
     Vector3f rotation_point;
-    Vector3f eye = new Vector3f(0.0f,0.0f,100.0f);
+    Vector3f eye = new Vector3f(18230.0f,21232.0f,10000.0f);
     Vector3f forward = new Vector3f(0.0f,0.0f,-1.0f);
     Vector3f up = new Vector3f(0.0f,1.0f,0.0f);
 

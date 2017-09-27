@@ -64,7 +64,7 @@ public class LocationAdress {
                         message.what = 1;
                         Bundle bundle = new Bundle();
                         result = "Latitude: " + latitude + " Longitude: " + longitude +
-                                "\n Unable to get address for this lat-long.";
+                                "\n Адреса нет.";
                         bundle.putString("address", result);
                         message.setData(bundle);
                         Log.w("W","WWWWWWWW RESULT = " + result);
