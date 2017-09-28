@@ -37,26 +37,14 @@ public class OpenGLProjectRenderer implements GLSurfaceView.Renderer {
     public ReadFile readFile = new ReadFile();
     FloatBuffer test_vertices;
     FloatBuffer verticesReady;
-    String strLine;
-    float [] vertix = new float[0];
-
-    float[] test={
-            4,50,0,
-            -5,50,0,
-            -5,-50,0,};
 
     public OpenGLProjectRenderer() {
+        //не цветные точки
         float [] vertix = readFile.read_file();
-        vertix_count = vertix.length;
-        verticesReady = ByteBuffer.allocateDirect(test.length * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
-        verticesReady.put(test).position(0);
-
-        test_vertices = ByteBuffer.allocateDirect(vertix.length*mBytesPerFloat).order(ByteOrder.nativeOrder()).asFloatBuffer();
-        test_vertices.put(vertix).position(0);
-        Log.w("W","длинна vertix = " + vertix.length);
-        Log.w("W","X = " + vertix[0]);
-        Log.w("W","Y = " + vertix[1]);
-        Log.w("W","Z = " + vertix[2]);
+        vertix_count = vertix.length/12;
+        verticesReady = ByteBuffer.allocateDirect(vertix.length * 4).order(ByteOrder.nativeOrder()).asFloatBuffer();
+        verticesReady.put(vertix).position(0);
+        Log.w("W","длинна vertix = " + vertix.length/12);
     }
 
     @Override
@@ -176,8 +164,7 @@ public class OpenGLProjectRenderer implements GLSurfaceView.Renderer {
         GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT | GLES20.GL_COLOR_BUFFER_BIT);
         GLES20.glUseProgram(colored_vertices_program_handle);
         GLES20.glUniformMatrix4fv(MVPmatrix_location, 1, false,camera.getViewProjectionMatrix().values, 0);
-        drawColoredPoints(test_vertices, GLES20.GL_POINTS, 0,793974);
-        drawColoredPoints(verticesReady, GLES20.GL_TRIANGLES, 0,3);
+        drawColoredPoints(verticesReady, GLES20.GL_POINTS, 0,vertix_count);
         //fpsCounter.logFrame();
     }
 
