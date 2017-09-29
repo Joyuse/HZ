@@ -17,7 +17,7 @@ import java.nio.ByteOrder;
 
 public class ReadFile {
     @TargetApi(Build.VERSION_CODES.KITKAT)
-    public float[] read_file() {
+    public float[] read_file(){
         float [] mass_vertices = new float[0];
         float [] mass_color_vertices = new float[0];
         int count_points;
@@ -37,21 +37,31 @@ public class ReadFile {
             fin.read(buffer, 0, fin.available());
             ByteBuffer bb = ByteBuffer.wrap(buffer);
             count_points = bb.getInt(); // кол-во точек
+            bb.order(ByteOrder.LITTLE_ENDIAN);
             Log.w("W","кол-во точек = " + count_points);
             //переводим это кол-во в байты
             count_mul = count_points * 12;
             Log.w("W","кол-во байт которые занимают точки = " + count_mul);
-            bb.order(ByteOrder.LITTLE_ENDIAN);
             //обьявляем массив размерностью точек
-            mass_vertices = new float[count_mul];
+            mass_vertices = new float[count_points * 3]; //NEW было count_mul стало  count_points * 3
             //Заносим в массив
             int p =0;
-            for(int i = 0; i < count_points * 3; i ++) {
+            for(int i = 0; i < count_points * 3 ; i ++) {
                 mass_vertices[i] = bb.getFloat();
                 p+=4;
             }
-            Log.w("W","кол-во точек = " + bb.getInt());
             Log.w("W","кол-во счит байтов = " + p);
+            bb.order(ByteOrder.BIG_ENDIAN);
+            //забираем инт
+            Log.w("W","кол-во цветных точек = " + bb.getInt());
+            //забираем флоаты
+            bb.order(ByteOrder.LITTLE_ENDIAN);
+            Log.w("W","X = " + bb.getFloat());
+            Log.w("W","Y = " + bb.getFloat());
+            Log.w("W","Z = " + bb.getFloat());
+            //берем цвет
+            bb.order(ByteOrder.BIG_ENDIAN);
+            Log.w("W","цвет = " + bb.getInt());
         }
         //Ловим ошибку при считывании
         catch (IOException ex) {
